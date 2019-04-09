@@ -18,23 +18,34 @@ class Product extends Component {
     };
   }
   handleChange = evt => {
-    this.setState({ manager: this.props.users.find(user => user.name === evt.target.value) });
+    this.setState({
+      manager: this.props.users.find(user => user.name === evt.target.value)
+    });
   };
   handleSubmit = () => {
     const { product } = this.props;
-    product.managerId = typeof this.state.manager === "object" ? this.state.manager.id : null;
+    product.managerId =
+      typeof this.state.manager === "object" ? this.state.manager.id : null;
     this.props.updateProductManager(product);
+  };
+  componentDidMount() {
+    this.setState({
+      manager: this.props.product.managerId
+        ? this.props.users.find(
+            user => user.id === this.props.product.managerId
+          )
+        : "-- none --"
+    });
   }
-  componentDidMount(){
-    this.setState({ manager: this.props.product.managerId
-      ? this.props.users.find(user => user.id === this.props.product.managerId)
-      : "-- none --" });
-  }
-  componentDidUpdate(prevProps){
-    if(prevProps.users !== this.props.users){
-      this.setState({ manager: this.props.product.managerId
-        ? this.props.users.find(user => user.id === this.props.product.managerId)
-        : "-- none --" });
+  componentDidUpdate(prevProps) {
+    if (prevProps.users !== this.props.users) {
+      this.setState({
+        manager: this.props.product.managerId
+          ? this.props.users.find(
+              user => user.id === this.props.product.managerId
+            )
+          : "-- none --"
+      });
     }
   }
   render() {
@@ -54,7 +65,11 @@ class Product extends Component {
         <select
           className="form-control"
           name="manager"
-          value={typeof this.state.manager === "object" ? this.state.manager.name : this.state.manager}
+          value={
+            typeof this.state.manager === "object"
+              ? this.state.manager.name
+              : this.state.manager
+          }
           onChange={this.handleChange}
         >
           <option value="-- none --">-- none --</option>
@@ -64,10 +79,21 @@ class Product extends Component {
             </option>
           ))}
         </select>
-        <button type="button" className="btn btn-primary" style={{ marginTop: "10px" }} onClick={this.handleSubmit}>Save</button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          style={{ marginTop: "10px" }}
+          onClick={this.handleSubmit}
+          disabled={typeof this.state.manager === "object" ? this.props.product.managerId === this.state.manager.id : !this.props.product.managerId} 
+        >
+          Save
+        </button>
       </li>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Product);
