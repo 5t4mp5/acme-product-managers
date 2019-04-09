@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import { thunkMiddleware } from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import axios from "axios";
 
 const REFRESH_USERS = "REFRESH_USERS";
@@ -12,7 +12,7 @@ const refreshUsers = users => ({
 
 export const updateUsers = () => {
   return dispatch => {
-    return axios.get("/api/users").then(users => dispatch(refreshUsers(users)));
+    return axios.get("/api/users").then(users => dispatch(refreshUsers(users.data)));
   };
 };
 
@@ -36,7 +36,7 @@ export const updateProducts = () => {
   return dispatch => {
     return axios
       .get("/api/products")
-      .then(products => dispatch(refreshProducts(products)));
+      .then(products => dispatch(refreshProducts(products.data)));
   };
 };
 
@@ -51,8 +51,7 @@ export const updateProductManager = product => {
 const productsReducer = (state = [], action) => {
   switch (action.type) {
     case REFRESH_PRODUCTS:
-      state = action.data;
-      break;
+      return action.products;
 
     default:
       return state;
