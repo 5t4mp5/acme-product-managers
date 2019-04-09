@@ -42,7 +42,7 @@ export const updateProducts = () => {
 export const updateProductManager = product => {
   return dispatch => {
     return axios
-      .put(`/api/${product.id}`, product)
+      .put(`/api/products/${product.id}`, product)
       .then(() => dispatch(updateProducts()));
   };
 };

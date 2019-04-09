@@ -5,6 +5,8 @@ const { dbSyncAndSeed, Product, User } = require("./db");
 
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+
 app.get("/app.js", (req, res, next) =>
   res.sendFile(path.join(__dirname, "dist", "main.js"))
 );
@@ -25,7 +27,7 @@ app.get("/api/products", (req, res, next) => {
         .catch(next);
 });
 
-app.put("/api/proucts/id", (req, res, next) => {
+app.put("/api/products/:id", (req, res, next) => {
   Product.findOne({ where: { id: req.params.id } })
     .then(product => product.update(req.body))
     .then(product => res.json(product))

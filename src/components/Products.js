@@ -4,7 +4,8 @@ import { updateProducts } from "../store";
 import Product from "./Product"
 
 const mapStateToProps = state => ({
-  products: state.products
+  products: state.products,
+  users: state.users
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -16,7 +17,6 @@ class Products extends Component {
     this.props.updateProducts();
   }
   render() {
-    console.log(this.props);
     const { products } = this.props;
     return (
       <ul className="list-group">
