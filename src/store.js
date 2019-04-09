@@ -19,8 +19,7 @@ export const updateUsers = () => {
 const usersReducer = (state = [], action) => {
     switch (action.type) {
       case REFRESH_USERS:
-        state = action.data;
-        break;
+        return action.users;
   
       default:
         return state;

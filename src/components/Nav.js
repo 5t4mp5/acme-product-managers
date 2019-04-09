@@ -20,9 +20,14 @@ const Nav = ({ users, products, location }) => {
     <ul className="nav nav-pills" style={{ marginBottom: "20px" }}>
       {tabs.map(tab => (
         <li key={tab} className="nav-item">
-            <Link to={`/${tab.toLowerCase()}`} className={`nav-link ${location.pathname === `/${tab.toLowerCase()}` ? "active" : ""}`}>
-                {tab}
-            </Link>
+          <Link
+            to={`/${tab.toLowerCase()}`}
+            className={`nav-link ${
+              location.pathname === `/${tab.toLowerCase()}` ? "active" : ""
+            }`}
+          >
+            {tab} {tab === "Managers" ? `(${countManagers(users, products)})` : ""}
+          </Link>
         </li>
       ))}
     </ul>
