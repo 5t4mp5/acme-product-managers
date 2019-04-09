@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateProducts, updateUsers } from "../store";
 import Products from "./Products";
@@ -27,6 +27,7 @@ class Main extends Component{
           <Route path="/products" component={Products} />
           <Route path="/home" component={Home} />
           <Route path="/managers" component={Managers} />
+          <Redirect to="/home" />
         </Switch>
       </div>
     );
