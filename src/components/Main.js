@@ -5,6 +5,7 @@ import { updateProducts, updateUsers } from "../store";
 import Products from "./Products";
 import Home from "./Home";
 import Nav from "./Nav";
+import Managers from "./Mangers";
 
 const mapDispatchToProps = dispatch => ({
   updateProducts: () => dispatch(updateProducts()),
@@ -25,6 +26,7 @@ class Main extends Component{
         <Switch>
           <Route path="/products" component={Products} />
           <Route path="/home" component={Home} />
+          <Route path="/managers" component={Managers} />
         </Switch>
       </div>
     );
