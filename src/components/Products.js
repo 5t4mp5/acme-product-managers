@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateProducts } from "../store";
-import Product from "./Product"
+import Product from "./Product";
 
 const mapStateToProps = state => ({
   products: state.products,

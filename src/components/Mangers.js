@@ -13,15 +13,11 @@ const findManagers = (users, products) => {
 };
 
 const Managers = ({ users, products }) => (
-    <ul>
-        {
-            findManagers(users, products).map(manager => (
-                <li key={manager.id}>
-                    {manager.name}
-                </li>
-            ))
-        }
-    </ul>
+  <ul>
+    {findManagers(users, products).map(manager => (
+      <li key={manager.id}>{manager.name}</li>
+    ))}
+  </ul>
 );
 
 export default connect(mapStateToProps)(Managers);

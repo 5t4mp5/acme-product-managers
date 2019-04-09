@@ -22,7 +22,7 @@ app.get("/api/users", (req, res, next) => {
 });
 
 app.get("/api/products", (req, res, next) => {
-    Product.findAll()
+    Product.findAll({ order:[["id", "desc"]] })
         .then(users => res.json(users))
         .catch(next);
 });

@@ -64,7 +64,7 @@ class Product extends Component {
             </option>
           ))}
         </select>
-        <button type="button" style={{ marginTop: "10px" }} onClick={this.handleSubmit}>Save</button>
+        <button type="button" className="btn btn-primary" style={{ marginTop: "10px" }} onClick={this.handleSubmit}>Save</button>
       </li>
     );
   }
