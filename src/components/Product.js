@@ -14,7 +14,8 @@ class Product extends Component {
   constructor() {
     super();
     this.state = {
-      manager: {}
+      manager: {},
+      errors: []
     };
   }
   handleChange = evt => {
@@ -26,7 +27,9 @@ class Product extends Component {
     const { product } = this.props;
     product.managerId =
       typeof this.state.manager === "object" ? this.state.manager.id : null;
-    this.props.updateProductManager(product);
+    this.props
+      .updateProductManager(product)
+      .catch(e => this.setState({ errors: e.response.data.errors }));
   };
   componentDidMount() {
     this.setState({
@@ -84,10 +87,29 @@ class Product extends Component {
           className="btn btn-primary"
           style={{ marginTop: "10px" }}
           onClick={this.handleSubmit}
-          disabled={typeof this.state.manager === "object" ? this.props.product.managerId === this.state.manager.id : !this.props.product.managerId} 
+          disabled={
+            typeof this.state.manager === "object"
+              ? this.props.product.managerId === this.state.manager.id
+              : !this.props.product.managerId
+          }
         >
           Save
         </button>
+        {this.state.errors.length > 0 ? (
+          <ul className="alert alert-danger">
+            {this.state.errors.map((error, i) => {
+              return error.errors ? (
+                error.errors.map((_error, j) => {
+                  return <li key={i + j + _error.message}>{_error.message}</li>;
+                })
+              ) : (
+                error.length > 0 ? <li key={i + error.message}>{error}</li> : ""
+              );
+            })}
+          </ul>
+        ) : (
+          ""
+        )}
       </li>
     );
   }

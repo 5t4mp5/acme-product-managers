@@ -34,6 +34,21 @@ app.put("/api/products/:id", (req, res, next) => {
     .catch(next);
 });
 
+app.use((error, req, res, next) => {
+  console.log(error.name);
+  console.log(Object.keys(error));
+  let errors = [error];
+  if (error.errors) {
+    error = error.errors.map(_error => {
+      return _error.message;
+    });
+  } else if (error.original) {
+    errors = [error.original.message];
+  }
+  res.status(error.status || 500).send({ errors });
+});
+
+
 dbSyncAndSeed().then(() =>
   app.listen(port, () => console.log(`listening on port ${port}`))
 );
